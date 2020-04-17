@@ -1,15 +1,17 @@
 <template>
   <div>
-    <!-- <vue-aplayer autoplay :music="{
+    <!-- <vue-aplayer autoplay  ref="player" :music="{
       title: '发刊词｜美国人为什么那样想？',
       author: 'Hans Zimmer/Richard Harvey',
-      url: 'http://m10.music.126.net/20200415173022/c7c00132a146bf00ac02e7d756dd5605/ymusic/c967/f2b7/691f/b53842874406c8afc883928d647459eb.mp3',
+      url: 'https://m10.music.126.net/20200417105653/682a2b145706ef53b8803a271b756315/ymusic/c967/f2b7/691f/b53842874406c8afc883928d647459eb.mp3',
       pic: 'http://devtest.qiniudn.com/Preparation.jpg',
       lrc: '[00:00.00]lrc here\n[00:01.00]vue-aplayer'
     }"></vue-aplayer> -->
     <vue-aplayer v-if="this.currentPlay.url" :music="this.currentPlay" ref="player"></vue-aplayer>
     <list></list>
     <Controller></Controller>
+    <aaudio></aaudio>
+    <demo></demo>
   </div>
 </template>
 
@@ -18,6 +20,8 @@ import vueAplayer from 'vue-aplayer'
 import axios from 'axios'
 import List from './components/List'
 import Controller from './components/Controller'
+import aaudio from '../Audio/Audio'
+import demo from '../vue-audio/demo'
 
 export default {
   name: 'Index',
@@ -37,7 +41,9 @@ export default {
   components: {
     vueAplayer,
     List,
-    Controller
+    Controller,
+    aaudio,
+    demo
   },
   computed: {
     getCurrentPlay () {

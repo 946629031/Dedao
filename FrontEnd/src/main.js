@@ -6,8 +6,11 @@ import router from './router'
 import store from './store' // 引入vuex
 import flexible from 'amfe-flexible' // eslint-disable-line
 import normalize from 'normalize.css' // eslint-disable-line
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.config.productionTip = false
+Vue.use(ElementUI)
 
 /* eslint-disable no-new */
 new Vue({
