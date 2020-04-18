@@ -32,7 +32,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - 2020年4月17日
     - [教你如何实现一个简单的音乐播放器 - 【element-audio github】](https://github.com/wangduanduan/element-audio)
     - 这个解决方案 [存在的问题]
-        - 1.在页面初始化，且加载好音乐文件的时候，不能够现实 [音乐总时长]
+        - 1.在页面初始化，且加载好音乐文件的时候，不能够显示 [音乐总时长]，而是默认的 0:00:00
             - 要在点击播放后，才能显示 [音乐总时长]
         - 2.进度条的拖拽有时候不灵敏，拖拽不动
 - 2020年4月18日
@@ -66,4 +66,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
            |- demo.vue
         ```
 ## 待开发功能
-- 服务器提供 流式mp3 资源，以供前端可以改变音乐进度
+- 服务器提供 数据流式mp3 资源，以供前端可以改变音乐进度
