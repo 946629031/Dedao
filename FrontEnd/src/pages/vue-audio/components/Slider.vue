@@ -2,14 +2,20 @@
   <div class="slider" @click="changeRate">
     <div class="slider_runway" ref="barWidth">
       <div class="slider_bar" :style="{width: sliderRunWidth}"></div>
+      <drag></drag>
     </div>
   </div>
 </template>
 
 <script>
+// 本模块为：进度条模块
+
+import Drag from './Drag'
+
 export default {
   name: 'slide',
   props: ['currentTime', 'maxTime'],
+  components: { Drag },
   data () {
     return {
       sliderWidth: null,
@@ -47,6 +53,7 @@ export default {
   width: 100%;
   height: 6px;
   background-color: #E4E7ED;
+  position: relative;
 }
 .slider_bar{
   width: 50%;

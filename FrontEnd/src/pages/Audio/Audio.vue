@@ -7,7 +7,7 @@
       @play="onPlay"
       @timeupdate="onTimeupdate"
       @loadedmetadata="onLoadedmetadata"
-    src="https://m10.music.126.net/20200417172005/773901c697ebf081890cd68f64f33778/ymusic/c967/f2b7/691f/b53842874406c8afc883928d647459eb.mp3"
+    src="https://m10.music.126.net/20200418155835/4f44aaac40a78bf5d93a895cd69a3a80/ymusic/c967/f2b7/691f/b53842874406c8afc883928d647459eb.mp3"
       controls="controls"></audio>
 
     <!-- 音频播放控件 -->

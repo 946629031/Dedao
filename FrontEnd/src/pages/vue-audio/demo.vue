@@ -11,7 +11,7 @@
     @pause='onPause'
     @timeupdate='onTimeupdate'
     @loadedmetadata='onLoadedmetadata'
-    src="https://m10.music.126.net/20200417183756/71925ecc940131929e46426e050a8f41/ymusic/c967/f2b7/691f/b53842874406c8afc883928d647459eb.mp3"
+    src="https://m10.music.126.net/20200418155835/4f44aaac40a78bf5d93a895cd69a3a80/ymusic/c967/f2b7/691f/b53842874406c8afc883928d647459eb.mp3"
      controls="controls"></audio>
 
     <div>{{ this.audio.currentTime | formatSecond}}</div>
