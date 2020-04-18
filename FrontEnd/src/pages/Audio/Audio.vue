@@ -1,56 +1,80 @@
 <template>
   <div>
     <!-- src="http://localhost:3308/music.mp3" -->
-    <!-- src="https://m10.music.126.net/20200417142719/cb0add72945e7e508d4e4a2cbed8f43e/ymusic/c967/f2b7/691f/b53842874406c8afc883928d647459eb.mp3" -->
+    <!-- src="https://m10.music.126.net/20200418173352/27c6d61b1483c92c5a9249ccb29f2220/ymusic/c967/f2b7/691f/b53842874406c8afc883928d647459eb.mp3" -->
     <audio ref="audio"
       @pause="onPause"
       @play="onPlay"
       @timeupdate="onTimeupdate"
       @loadedmetadata="onLoadedmetadata"
-    src="https://m10.music.126.net/20200418155835/4f44aaac40a78bf5d93a895cd69a3a80/ymusic/c967/f2b7/691f/b53842874406c8afc883928d647459eb.mp3"
+      src=""
+      style="display: none"
       controls="controls"></audio>
 
+    <div>{{this.$store.state.currentPlay.url}}</div>
     <!-- 音频播放控件 -->
-    <div>
-      <el-button type="text" @click="startPlayOrPause">{{audio.playing | transPlayPause}}</el-button>
+    <div class="controls_wrapper">
+      <!-- 滑块 -->
+      <div class="slider_wrapper">
+        <el-tag type="info">{{ audio.currentTime | formatSecond}}</el-tag>
 
-      <el-tag type="info">{{ audio.currentTime | formatSecond}}</el-tag>
+          <!-- 进度条 -->
+          <el-slider v-model="sliderTime" :format-tooltip="formatProcessToolTip" @change="changeCurrentTime" class="slider"></el-slider>
 
-        <!-- 进度条ui -->
-        <el-slider v-model="sliderTime" :format-tooltip="formatProcessToolTip" @change="changeCurrentTime" class="slider"></el-slider>
+        <el-tag type="info">{{ audio.maxTime | formatSecond}}</el-tag>
+      </div>
 
-      <el-tag type="info">{{ audio.maxTime | formatSecond}}</el-tag>
+      <!-- 播放按钮 -->
+      <div class="button_wrapper">
+        <div>←</div>
+        <el-button type="text" @click="startPlayOrPause">{{audio.playing | transPlayPause}}</el-button>
+        <div>→</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-// 将整数转换成 时：分：秒的格式
-function realFormatSecond (second) {
-  var secondType = typeof second
-
-  if (secondType === 'number' || secondType === 'string') {
-    second = parseInt(second)
-
-    var hours = Math.floor(second / 3600)
-    second = second - hours * 3600
-    var mimute = Math.floor(second / 60)
-    second = second - mimute * 60
-
-    return hours + ':' + ('0' + mimute).slice(-2) + ':' + ('0' + second).slice(-2)
-  } else {
-    return '0:00:00'
-  }
-}
-
 export default {
   data () {
     return {
       sliderTime: null,
+      url: '123.mp3',
       audio: {
         // 该字段是音频是否处于播放状态的属性
         playing: false
+      },
+      currentPlay: {
+        autoplay: false,
+                              // eslint-disable-line
+        title: null,
+        author: null,
+        url: null,
+        pic: null,
+        lrc: null
       }
+    }
+  },
+  computed: {
+    getCurrentPlay () {
+      return this.$store.state.currentPlay
+    }
+  },
+  watch: {
+    getCurrentPlay () {
+      this.currentPlay = {
+        title: this.$store.state.currentPlay.title,
+        author: this.$store.state.currentPlay.author,
+        url: 'http://localhost:3308/' + this.$store.state.currentPlay.url,
+        pic: this.$store.state.currentPlay.pic,
+        lrc: this.$store.state.currentPlay.lrc
+      }
+      // 如果点击了列表，当前播放文件被改变，则重新赋值 并播放
+      this.$refs.audio.setAttribute('src', 'http://localhost:3308/' + this.$store.state.currentPlay.url)
+      this.$refs.audio.play()
+      // setTimeout(() => {
+      //   this.$refs.audio.play()
+      // }, 1000)
     }
   },
   methods: {
@@ -58,34 +82,31 @@ export default {
     startPlayOrPause () {
       return this.audio.playing ? this.pause() : this.play()
     },
-    // 播放音频
-    play () {
+    play () { // 播放音频
+      this.$refs.audio.setAttribute('src', 'http://localhost:3308/' + this.$store.state.currentPlay.url)
       this.$refs.audio.play()
     },
-    // 暂停音频
-    pause () {
+    pause () { // 暂停音频
       this.$refs.audio.pause()
     },
-    // 当音频播放
-    onPlay () {
+    onPlay () { // 当音频播放
       this.audio.playing = true
     },
-    // 当音频暂停
-    onPause () {
+    onPause () { // 当音频暂停
       this.audio.playing = false
     },
     // 当加载语音流元数据完成后，会触发该事件的回调函数
     // 语音元数据主要是语音的长度之类的数据
     onLoadedmetadata (res) {
-      console.log('loadedmetadata')
-      console.log(res)
+      // console.log('loadedmetadata')
+      // console.log(res)
       this.audio.maxTime = parseInt(res.target.duration)
     },
     // 当timeupdate事件大概每秒一次，用来更新音频流的当前播放时间
     // 当音频当前时间改变后，进度条也要改变
     onTimeupdate (res) {
-      console.log('timeupdate')
-      console.log(res)
+      // console.log('timeupdate')
+      // console.log(res)
       this.audio.currentTime = res.target.currentTime
       this.sliderTime = parseInt(this.audio.currentTime / this.audio.maxTime * 100)
     },
@@ -110,8 +131,36 @@ export default {
     }
   }
 }
+
+// 将整数转换成 时：分：秒的格式
+function realFormatSecond (second) {
+  var secondType = typeof second
+
+  if (secondType === 'number' || secondType === 'string') {
+    second = parseInt(second)
+
+    var hours = Math.floor(second / 3600)
+    second = second - hours * 3600
+    var mimute = Math.floor(second / 60)
+    second = second - mimute * 60
+
+    return hours + ':' + ('0' + mimute).slice(-2) + ':' + ('0' + second).slice(-2)
+  } else {
+    return '0:00:00'
+  }
+}
 </script>
 
-<style>
-
+<style lang="stylus" scoped>
+.controls_wrapper
+  .slider_wrapper
+    display flex
+    .slider
+      flex 1
+    .el-tag
+      margin 0 20px
+  .button_wrapper
+    text-align: center;
+    display flex
+    justify-content space-around
 </style>

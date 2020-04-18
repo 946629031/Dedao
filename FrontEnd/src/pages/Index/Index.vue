@@ -1,5 +1,7 @@
 <template>
   <div>
+    <div class="post"></div>
+    <aaudio></aaudio>
     <!-- <vue-aplayer autoplay  ref="player" :music="{
       title: '发刊词｜美国人为什么那样想？',
       author: 'Hans Zimmer/Richard Harvey',
@@ -10,8 +12,6 @@
     <vue-aplayer v-if="this.currentPlay.url" :music="this.currentPlay" ref="player"></vue-aplayer>
     <list></list>
     <Controller></Controller>
-    <aaudio></aaudio>
-    <demo></demo>
   </div>
 </template>
 
@@ -21,7 +21,6 @@ import axios from 'axios'
 import List from './components/List'
 import Controller from './components/Controller'
 import aaudio from '../Audio/Audio'
-import demo from '../vue-audio/demo'
 
 export default {
   name: 'Index',
@@ -42,28 +41,27 @@ export default {
     vueAplayer,
     List,
     Controller,
-    aaudio,
-    demo
+    aaudio
   },
-  computed: {
-    getCurrentPlay () {
-      return this.$store.state.currentPlay
-    }
-  },
-  watch: {
-    getCurrentPlay () {
-      this.currentPlay = {
-        title: this.$store.state.currentPlay.title,
-        author: this.$store.state.currentPlay.author,
-        url: 'http://localhost:3308/' + this.$store.state.currentPlay.url,
-        pic: this.$store.state.currentPlay.pic,
-        lrc: this.$store.state.currentPlay.lrc
-      }
-      setTimeout(() => {
-        this.$refs.player.play()
-      }, 1000)
-    }
-  },
+  // computed: {
+  //   getCurrentPlay () {
+  //     return this.$store.state.currentPlay
+  //   }
+  // },
+  // watch: {
+  //   getCurrentPlay () {
+  //     this.currentPlay = {
+  //       title: this.$store.state.currentPlay.title,
+  //       author: this.$store.state.currentPlay.author,
+  //       url: 'http://localhost:3308/' + this.$store.state.currentPlay.url,
+  //       pic: this.$store.state.currentPlay.pic,
+  //       lrc: this.$store.state.currentPlay.lrc
+  //     }
+  //     // setTimeout(() => {
+  //     //   this.$refs.player.play()
+  //     // }, 1000)
+  //   }
+  // },
   mounted () {
     axios.get('http://127.0.0.1:3308/api/data/retrieve/playList')
       .then(dataList => {
@@ -75,6 +73,11 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="stylus" scoped>
+.post
+  width 40vw
+  height 60vw
+  background-color #efefef
+  border-radius 6px
+  margin 10vw auto
 </style>

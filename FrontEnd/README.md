@@ -31,6 +31,10 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
         - 原因是 vue-aplayer 没有理想的播放控件
 - 2020年4月17日
     - [教你如何实现一个简单的音乐播放器 - 【element-audio github】](https://github.com/wangduanduan/element-audio)
+    - 这个解决方案 [存在的问题]
+        - 1.在页面初始化，且加载好音乐文件的时候，不能够现实 [音乐总时长]
+            - 要在点击播放后，才能显示 [音乐总时长]
+        - 2.进度条的拖拽有时候不灵敏，拖拽不动
 - 2020年4月18日
     - 1.目的：自己着手实现 【进度条功能】
     - 2.结果：实现了 点击进度条改变 音乐播放进度
@@ -61,3 +65,5 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
              |- Slider.vue  进度条
            |- demo.vue
         ```
+## 待开发功能
+- 服务器提供 流式mp3 资源，以供前端可以改变音乐进度

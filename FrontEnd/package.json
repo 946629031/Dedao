@@ -17,6 +17,8 @@
     "element-ui": "^2.13.1",
     "hls.js": "^0.13.2",
     "normalize.css": "^8.0.1",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
     "vue": "^2.5.2",
     "vue-aplayer": "^1.6.1",
     "vue-img-inputer": "^2.1.6",
