@@ -20,7 +20,7 @@ router.get('/', async(ctx, next) => {
 })
 
 router.get('/uploadFile/:filename', async(ctx, next) => {
-	var mp3 = path.resolve(__dirname + '../../../../uploadFile/' + ctx.params.filename)
+	var mp3 = path.resolve(__dirname + '../../../../../uploadFile/' + ctx.params.filename)
 
 	fs.exists(mp3, function(exists) {
 		console.log(mp3, exists ? "文件存在" : "文件不存在")
