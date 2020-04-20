@@ -28,6 +28,7 @@ router.get('/uploadFile/:filename', async(ctx, next) => {
 			// stream file
 			const src = fs.createReadStream(mp3)
 			ctx.body = src
+			console.log('处理完了')
 		}
 	})
 })
