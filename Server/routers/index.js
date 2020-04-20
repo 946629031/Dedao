@@ -20,7 +20,7 @@ router.get('/', async(ctx, next) => {
 })
 
 router.get('/uploadFile/:filename', async(ctx, next) => {
-	var mp3 = path.resolve(__dirname + '../../../uploadFile/' + ctx.params.filename)
+	var mp3 = path.resolve(__dirname + '../../../../uploadFile/' + ctx.params.filename)
 
 	// stream file
 	const src = fs.createReadStream(mp3)
