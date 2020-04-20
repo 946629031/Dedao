@@ -23,7 +23,7 @@ router.get('/uploadFile/:filename', async(ctx, next) => {
 	var mp3 = path.resolve(__dirname + '../../../../uploadFile/' + ctx.params.filename)
 
 	fs.exists(mp3, function(exists) {
-		console.log(exists ? "文件存在" : "文件不存在")
+		console.log(mp3, exists ? "文件存在" : "文件不存在")
 		if (exists) {
 			// stream file
 			const src = fs.createReadStream(mp3)
