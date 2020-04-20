@@ -71,12 +71,12 @@ export default {
         title: this.$store.state.currentPlay.title,
         author: this.$store.state.currentPlay.author,
         // url: 'http://localhost:3308/' + this.$store.state.currentPlay.url,
-        url: 'http://localhost:3308/uploadFile/' + this.$store.state.currentPlay.url,
+        url: 'http://111.229.237.104:3308/uploadFile/' + this.$store.state.currentPlay.url,
         pic: this.$store.state.currentPlay.pic,
         lrc: this.$store.state.currentPlay.lrc
       }
       // 如果点击了列表，当前播放文件被改变，则重新赋值 并播放
-      this.$refs.audio.setAttribute('src', 'http://localhost:3308/uploadFile/' + this.$store.state.currentPlay.url)
+      this.$refs.audio.setAttribute('src', 'http://111.229.237.104:3308/uploadFile/' + this.$store.state.currentPlay.url)
       this.$refs.audio.play()
     }
   },
