@@ -41,4 +41,12 @@ ul {
   margin: 0;
   padding: 0;
 }
+
+.icon { /* iconfont */
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
 </style>

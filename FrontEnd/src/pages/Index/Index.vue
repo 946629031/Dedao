@@ -9,7 +9,7 @@
       pic: 'http://devtest.qiniudn.com/Preparation.jpg',
       lrc: '[00:00.00]lrc here\n[00:01.00]vue-aplayer'
     }"></vue-aplayer> -->
-    <vue-aplayer v-if="this.currentPlay.url" :music="this.currentPlay" ref="player"></vue-aplayer>
+    <!-- <vue-aplayer v-if="this.currentPlay.url" :music="this.currentPlay" ref="player"></vue-aplayer> -->
     <list></list>
     <Controller></Controller>
   </div>
@@ -43,25 +43,26 @@ export default {
     Controller,
     aaudio
   },
-  // computed: {
-  //   getCurrentPlay () {
-  //     return this.$store.state.currentPlay
-  //   }
-  // },
-  // watch: {
-  //   getCurrentPlay () {
-  //     this.currentPlay = {
-  //       title: this.$store.state.currentPlay.title,
-  //       author: this.$store.state.currentPlay.author,
-  //       url: 'http://localhost:3308/' + this.$store.state.currentPlay.url,
-  //       pic: this.$store.state.currentPlay.pic,
-  //       lrc: this.$store.state.currentPlay.lrc
-  //     }
-  //     // setTimeout(() => {
-  //     //   this.$refs.player.play()
-  //     // }, 1000)
-  //   }
-  // },
+  computed: {
+    getCurrentPlay () {
+      return this.$store.state.currentPlay
+    }
+  },
+  watch: {
+    getCurrentPlay () {
+      this.currentPlay = {
+        title: this.$store.state.currentPlay.title,
+        author: this.$store.state.currentPlay.author,
+        // url: 'http://localhost:3308/' + this.$store.state.currentPlay.url,
+        url: 'http://localhost:3308/uploadFile/' + this.$store.state.currentPlay.url,
+        pic: this.$store.state.currentPlay.pic,
+        lrc: this.$store.state.currentPlay.lrc
+      }
+      // setTimeout(() => {
+      //   this.$refs.player.play()
+      // }, 1000)
+    }
+  },
   mounted () {
     axios.get('http://127.0.0.1:3308/api/data/retrieve/playList')
       .then(dataList => {

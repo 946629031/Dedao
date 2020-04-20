@@ -2,6 +2,7 @@
 
 node_modules/
 Front/node_modules/
+uploadFile/
 
 npm-debug.log*
 yarn-debug.log*

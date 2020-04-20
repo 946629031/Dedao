@@ -1,0 +1,33 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1587350550042'); /* IE9 */
+  src: url('iconfont.eot?t=1587350550042#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAPEAAsAAAAACMAAAAN2AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDIgqEaIQtATYCJAMUCwwABCAFhG0HThuvBxFVlLtkPxMyvBaezj3KnBBxMPltm7Ks8UwQ3+vS/fpPOkSD5DCVBBUgVqlslgNAJZBch7glkIMVQXUpM9cAAQRic36Afms6xjYqQnXJnqee5X8k351emjLO4zRKISRCcnDMdAk+zLOtXTJSs3g8oAFlfOPTk/1rgr4Qvy1xBio2qRuX/cyfhwLCOPRBjR0/YQZBhHCXAtSGtauXEuz4EcRGBlXWxEVBHcAkaOw0HgH7i49XvxikgmBgasIXTVk1bgUjv3b62le7ZZcF2sXFWQH7GmigDyCglk3aF6CreB804Q2zMACwEJmB8pbLFKje/K3SutB/eAYaAWURyqOEHSmThyVIKFDwtTeXHHztQxRo+NpX+IHITd4eBmKAB9VFiQqboCNPNBqLJfJ0/FeiDa8+z3j9Zab/bfabr7Vv3szy/dmvX8989WrZLk/p1rbdlzDci5FWQ+JPOWtXftax1sLs47svudkZM4+KuFjuhrvS2rY7Rxwa6Ih7v3nLjp3FcM8Vlh9v7aCbfHEc8SOcY/smJ9NJe3MotvniVSmRa3K19NX4XqXlqlwrsZ8lBycnJgbXDE5MrCZvJ7wwHXQtSOqkgkbRzmJt6dWcz1xo5ciTce/v31P2qTTzUvUM23v1OlrmVY+lw2DXF9s5G4mfKdshUhPIoY5LmlWE6Ocda596HXq96pnVB8R5tvfHSwfdcEONXI5Is4oWcu5Vnr6yIT4+sf5yeexqJbUAlLfq/zWbSBdZR9guaFe6qats+Hf8DlM27h6/ODH0XzAiALx72DfHhrIrLyCIAbbgvyAQdshWFBpMCaoTfuAwGdTKwgDCUQjKhO40nzDKnLgYFEFyDRgEsEETpAtSsH3ANIgYApagERDWW3E9IkMsqYWAXt4KlKQPGOLugpb0RQr2B6a8P1iSLSFsVpl7RnSrOowRNIoe7Asqxz3FJj2UpScMU2ukLSrwN5SxCkEaJf1UgT0K4sh4D5kqAQl3cFQvw7ZlGIRrdBqVqkMexzT1RpHjbnYwhkCGQh6wXkDFYT3KpqvD4P1PUDBpGbJQc8N+g8Somh+kIokAWch7Uc1Lec3oLsgoRQARrAOOyoraKM7AML2uhhwVKTWig1zMvUgqj06v7N7jGSAsfKSZobQSZSoL60ymD5v6qfDu6ngyoy/c1pvX5OvDbAYAAA==') format('woff2'),
+  url('iconfont.woff?t=1587350550042') format('woff'),
+  url('iconfont.ttf?t=1587350550042') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1587350550042#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-bofang:before {
+  content: "\e622";
+}
+
+.icon-zuofan:before {
+  content: "\e62b";
+}
+
+.icon-youfanye:before {
+  content: "\e62c";
+}
+
+.icon-zanting:before {
+  content: "\e62d";
+}
+

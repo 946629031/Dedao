@@ -7,11 +7,12 @@
       @play="onPlay"
       @timeupdate="onTimeupdate"
       @loadedmetadata="onLoadedmetadata"
-      src=""
+      src="http://m10.music.126.net/20200420104455/18572d51641147812de97865caa9dcc7/ymusic/d605/00d2/9ab8/26f7b290859a3bfad643ef28be54bf84.mp3"
       style="display: none"
+      meted="meted"
       controls="controls"></audio>
 
-    <div>{{this.$store.state.currentPlay.url}}</div>
+    <div class="title" v-if="this.$store.state.currentPlay && this.$store.state.currentPlay.url">{{this.$store.state.currentPlay.title}}</div>
     <!-- 音频播放控件 -->
     <div class="controls_wrapper">
       <!-- 滑块 -->
@@ -26,9 +27,13 @@
 
       <!-- 播放按钮 -->
       <div class="button_wrapper">
-        <div>←</div>
-        <el-button type="text" @click="startPlayOrPause">{{audio.playing | transPlayPause}}</el-button>
-        <div>→</div>
+        <svg class="icon previous" aria-hidden="true"> <use xlink:href="#icon-zuofan"></use> </svg>
+        <!-- <el-button type="text" @click="startPlayOrPause">{{audio.playing | transPlayPause}}</el-button> -->
+        <div @click="startPlayOrPause">
+          <svg v-if="this.audio.playing" class="icon" aria-hidden="true"> <use xlink:href="#icon-bofang"></use> </svg>
+          <svg v-else class="icon" aria-hidden="true"> <use xlink:href="#icon-zanting"></use> </svg>
+        </div>
+        <svg class="icon next" aria-hidden="true"> <use xlink:href="#icon-youfanye"></use> </svg>
       </div>
     </div>
   </div>
@@ -65,16 +70,14 @@ export default {
       this.currentPlay = {
         title: this.$store.state.currentPlay.title,
         author: this.$store.state.currentPlay.author,
-        url: 'http://localhost:3308/' + this.$store.state.currentPlay.url,
+        // url: 'http://localhost:3308/' + this.$store.state.currentPlay.url,
+        url: 'http://localhost:3308/uploadFile/' + this.$store.state.currentPlay.url,
         pic: this.$store.state.currentPlay.pic,
         lrc: this.$store.state.currentPlay.lrc
       }
       // 如果点击了列表，当前播放文件被改变，则重新赋值 并播放
-      this.$refs.audio.setAttribute('src', 'http://localhost:3308/' + this.$store.state.currentPlay.url)
+      this.$refs.audio.setAttribute('src', 'http://localhost:3308/uploadFile/' + this.$store.state.currentPlay.url)
       this.$refs.audio.play()
-      // setTimeout(() => {
-      //   this.$refs.audio.play()
-      // }, 1000)
     }
   },
   methods: {
@@ -83,7 +86,7 @@ export default {
       return this.audio.playing ? this.pause() : this.play()
     },
     play () { // 播放音频
-      this.$refs.audio.setAttribute('src', 'http://localhost:3308/' + this.$store.state.currentPlay.url)
+      // this.$refs.audio.setAttribute('src', 'http://m10.music.126.net/20200420164512/b3236c01e18edcde39c6e28c405f43a9/ymusic/d605/00d2/9ab8/26f7b290859a3bfad643ef28be54bf84.mp3')
       this.$refs.audio.play()
     },
     pause () { // 暂停音频
@@ -121,10 +124,10 @@ export default {
     }
   },
   filters: {
-    // 使用组件过滤器来动态改变按钮的显示
-    transPlayPause (value) {
-      return value ? '暂停' : '播放'
-    },
+    // // 使用组件过滤器来动态改变按钮的显示
+    // transPlayPause (value) {
+    //   return value ? '暂停' : '播放'
+    // },
     // 将整数转化成时分秒
     formatSecond (second = 0) {
       return realFormatSecond(second)
@@ -152,7 +155,12 @@ function realFormatSecond (second) {
 </script>
 
 <style lang="stylus" scoped>
+.title
+  font-size 18px
+  padding 20px
+  box-sizing border-box
 .controls_wrapper
+  margin-top 20px
   .slider_wrapper
     display flex
     .slider
@@ -160,7 +168,15 @@ function realFormatSecond (second) {
     .el-tag
       margin 0 20px
   .button_wrapper
-    text-align: center;
+    text-align center
+    align-items center
     display flex
     justify-content space-around
+    padding 30px 0
+    .icon
+      width 60px
+      height 60px
+    .previous, .next
+      width 30px
+      height 30px
 </style>

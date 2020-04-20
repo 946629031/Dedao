@@ -8,6 +8,8 @@ import flexible from 'amfe-flexible' // eslint-disable-line
 import normalize from 'normalize.css' // eslint-disable-line
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import '@/assets/styles/iconfont/iconfont.css'
+import '@/assets/styles/iconfont/iconfont.js'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)

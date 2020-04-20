@@ -19,12 +19,20 @@ router.get('/', async(ctx, next) => {
 	ctx.body = indexData
 })
 
+router.get('/uploadFile/:filename', async(ctx, next) => {
+	var mp3 = path.resolve(__dirname + '../../../uploadFile/' + ctx.params.filename)
+
+	// stream file
+	const src = fs.createReadStream(mp3)
+	ctx.body = src;
+})
+
 
 // 获取所有数据
 router.get('/api/data/retrieve/playList', async(ctx, next) => {
 	let rows = await query("select * from playlist")
 
-	console.log(rows)
+	// console.log(rows)
 	
     ctx.body = {
         code: 1,
