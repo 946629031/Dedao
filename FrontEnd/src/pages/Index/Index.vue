@@ -53,8 +53,8 @@ export default {
       this.currentPlay = {
         title: this.$store.state.currentPlay.title,
         author: this.$store.state.currentPlay.author,
-        // url: 'http://localhost:3308/' + this.$store.state.currentPlay.url,
-        url: 'http://localhost:3308/uploadFile/' + this.$store.state.currentPlay.url,
+        url: 'http://111.229.237.104:3308/uploadFile/' + this.$store.state.currentPlay.url,
+        // url: 'http://localhost:3308/uploadFile/' + this.$store.state.currentPlay.url,
         pic: this.$store.state.currentPlay.pic,
         lrc: this.$store.state.currentPlay.lrc
       }
@@ -64,7 +64,8 @@ export default {
     }
   },
   mounted () {
-    axios.get('http://127.0.0.1:3308/api/data/retrieve/playList')
+    // axios.get('http://127.0.0.1:3308/api/data/retrieve/playList')
+    axios.get('http://111.229.237.104:3308/api/data/retrieve/playList')
       .then(dataList => {
         if (dataList.data.code === 1 && dataList.data.msg === '请求成功') {
           this.$store.commit('getAllList', dataList.data.data)

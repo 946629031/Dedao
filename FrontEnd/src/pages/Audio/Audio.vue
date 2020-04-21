@@ -7,7 +7,7 @@
       @play="onPlay"
       @timeupdate="onTimeupdate"
       @loadedmetadata="onLoadedmetadata"
-      src="http://m10.music.126.net/20200420104455/18572d51641147812de97865caa9dcc7/ymusic/d605/00d2/9ab8/26f7b290859a3bfad643ef28be54bf84.mp3"
+      src=""
       style="display: none"
       meted="meted"
       controls="controls"></audio>
