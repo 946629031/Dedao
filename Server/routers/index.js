@@ -21,16 +21,15 @@ router.get('/', async(ctx, next) => {
 
 router.get('/uploadFile/:filename', async(ctx, next) => {
 	var mp3 = path.resolve(__dirname + '../../../../shared/uploadFile/' + ctx.params.filename)
+	// var mp3 = path.resolve(__dirname + '../../../../uploadFile/' + ctx.params.filename)
 
-	fs.exists(mp3, function(exists) {
-		console.log(mp3, exists ? "文件存在" : "文件不存在")
-		if (exists) {
-			// stream file
-			const src = fs.createReadStream(mp3)
-			ctx.body = src
-			console.log('处理完了')
-		}
-	})
+	if (fs.existsSync(mp3)) {
+		console.log('文件存在');
+		const src = fs.createReadStream(mp3)
+		ctx.body = src
+	} else {
+		ctx.body = 'error: 你所访问的文件并不存在'
+	}
 })
 
 
