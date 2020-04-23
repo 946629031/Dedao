@@ -14,7 +14,7 @@
         "production" : {
             "user" : "root",
             "host" : ["111.229.237.104"],
-            "ref"  : "origin/master",
+            "ref"  : "origin/webpack-split-chunks",
             "repo" : "git@github.com:946629031/Dedao.git",
             "path" : "/www/wwwroot/threeki/dedao/Server/",
             "ssh_options": "StrictHostKeyChecking=no",

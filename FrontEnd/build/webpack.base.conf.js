@@ -24,6 +24,13 @@ module.exports = {
   entry: {
     app: './src/main.js'
   },
+  //新加的
+  externals: {
+    'element-ui': 'ELEMENT',
+    'vue': 'Vue',
+    'vue-router': 'VueRouter',
+    'vuex': 'Vuex',
+  },
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
