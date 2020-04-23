@@ -20,7 +20,7 @@ router.get('/', async(ctx, next) => {
 })
 
 router.get('/uploadFile/:filename', async(ctx, next) => {
-	var mp3 = path.resolve(__dirname + '../../../../shared/uploadFile/' + ctx.params.filename)
+	var mp3 = path.resolve('/www/wwwroot/threeki/dedao/Server/uploadFile' + ctx.params.filename)
 	// var mp3 = path.resolve(__dirname + '../../../../uploadFile/' + ctx.params.filename)
 
 	if (fs.existsSync(mp3)) {
