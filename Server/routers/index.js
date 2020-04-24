@@ -20,7 +20,9 @@ router.get('/', async(ctx, next) => {
 })
 
 router.get('/uploadFile/:filename', async(ctx, next) => {
-	var mp3 = path.resolve('/www/wwwroot/threeki/dedao/Server/uploadFile' + ctx.params.filename)
+	// var mp3 = path.resolve('/www/wwwroot/threeki/dedao/server-no-pm2/uploadFile/' + ctx.params.filename)
+	var mp3 = path.resolve(__dirname + '../../../uploadFile/' + ctx.params.filename)
+
 	// var mp3 = path.resolve(__dirname + '../../../../uploadFile/' + ctx.params.filename)
 
 	if (fs.existsSync(mp3)) {
@@ -28,7 +30,8 @@ router.get('/uploadFile/:filename', async(ctx, next) => {
 		const src = fs.createReadStream(mp3)
 		ctx.body = src
 	} else {
-		ctx.body = 'error: 你所访问的文件并不存在'
+		ctx.response.status= 404
+		ctx.body = 'error: 你所访问的文件并不存在, 路径：' + mp3
 	}
 })
 

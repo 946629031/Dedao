@@ -1,10 +1,13 @@
 <template>
   <div id="playList">
-    <ul>
+    <div v-for="(item, index) of this.list" :key='index' @click="changePlay(item)">
+      <div>{{item.title}}</div>
+    </div>
+    <!-- <ul>
       <li v-for="(item, index) of this.list" :key='index' @click="changePlay(item)">
         <div>{{item.title}}</div>
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
