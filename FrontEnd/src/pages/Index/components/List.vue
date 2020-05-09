@@ -33,7 +33,7 @@ export default {
   methods: {
     changePlay (item) {
       this.$store.commit('changeCurrentPlay', item)
-      document.querySelector('audio').play()
+      // document.querySelector('audio').play()
     }
   }
 }

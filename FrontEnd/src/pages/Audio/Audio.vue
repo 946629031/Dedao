@@ -2,13 +2,15 @@
   <div>
     <!-- src="http://localhost:3308/music.mp3" -->
     <!-- src="https://m10.music.126.net/20200418173352/27c6d61b1483c92c5a9249ccb29f2220/ymusic/c967/f2b7/691f/b53842874406c8afc883928d647459eb.mp3" -->
+    <div v-if="this.audio">{{audio}}</div>
+    <div v-if="this.audio.maxTime">{{maxTime}} : {{maxTime.target}} : {{maxTime.target.duration}}</div>
     <audio ref="audio"
       @pause="onPause"
       @play="onPlay"
       @timeupdate="onTimeupdate"
       @loadedmetadata="onLoadedmetadata"
       src=""
-      style="display: none"
+      style="display: block"
       meted="meted"
       controls="controls"></audio>
 
@@ -43,11 +45,13 @@
 export default {
   data () {
     return {
+      maxTime: '',
       sliderTime: null,
       url: '123.mp3',
       audio: {
         // 该字段是音频是否处于播放状态的属性
-        playing: false
+        playing: false,
+        maxTime: null
       },
       currentPlay: {
         autoplay: false,
@@ -63,21 +67,31 @@ export default {
   computed: {
     getCurrentPlay () {
       return this.$store.state.currentPlay
+    },
+    getMaxTimechange () {
+      return this.audio.maxTime
     }
   },
   watch: {
     getCurrentPlay () {
+      this.audio.playing = false
+
       this.currentPlay = {
         title: this.$store.state.currentPlay.title,
         author: this.$store.state.currentPlay.author,
-        // url: 'http://localhost:3308/' + this.$store.state.currentPlay.url,
         url: 'http://111.229.237.104:3308/uploadFile/' + this.$store.state.currentPlay.url,
         pic: this.$store.state.currentPlay.pic,
         lrc: this.$store.state.currentPlay.lrc
       }
       // 如果点击了列表，当前播放文件被改变，则重新赋值 并播放
-      this.$refs.audio.setAttribute('src', 'http://111.229.237.104:3308/uploadFile/' + this.$store.state.currentPlay.url)
-      this.$refs.audio.play()
+      // this.$refs.audio.setAttribute('src', 'http://111.229.237.104:3308/uploadFile/' + this.$store.state.currentPlay.url)
+      this.$refs.audio.setAttribute('src', 'http://www.w3school.com.cn/i/song.mp3')
+      // this.$refs.audio.setAttribute('src', 'http://m801.music.126.net/20200509151706/010cffbca9ba0f0ba1f9c3bcf8c5eeda/jdymusic/obj/w5zDlMODwrDDiGjCn8Ky/2270179822/2491/6dd5/eafd/7db3a42de108d4d1dbb91fb71d024c28.mp3')
+
+      // this.$refs.audio.play() //  Safari 浏览器不允许自动播放，违反用户意愿
+    },
+    getMaxTimechange () {
+      console.log('this.audio.maxTime' + this.audio.maxTime)
     }
   },
   methods: {
@@ -101,8 +115,9 @@ export default {
     // 当加载语音流元数据完成后，会触发该事件的回调函数
     // 语音元数据主要是语音的长度之类的数据
     onLoadedmetadata (res) {
-      // console.log('loadedmetadata')
-      // console.log(res)
+      console.log('loadedmetadata', res.target.duration, res)
+      this.maxTime = res
+      // if (res.target.duration) this.audio.maxTime = parseInt(res.target.duration)
       this.audio.maxTime = parseInt(res.target.duration)
     },
     // 当timeupdate事件大概每秒一次，用来更新音频流的当前播放时间
