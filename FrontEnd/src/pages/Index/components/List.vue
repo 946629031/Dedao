@@ -1,7 +1,7 @@
 <template>
   <div id="playList">
     <div v-for="(item, index) of this.list" :key='index' @click="changePlay(item)">
-      <div>{{item.title}}</div>
+      {{item.title}}
     </div>
     <!-- <ul>
       <li v-for="(item, index) of this.list" :key='index' @click="changePlay(item)">
@@ -42,5 +42,8 @@ export default {
 <style scoped>
 #playList {
   font-size: 16px;
+}
+#playList>div{
+  padding: 10px 20px
 }
 </style>

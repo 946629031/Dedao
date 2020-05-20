@@ -9,20 +9,6 @@
 <script>
 export default {
   name: 'Controller',
-  computed: {
-    getPlayStatus () {
-      return this.$store.state.playStatus
-    }
-  },
-  watch: {
-    getPlayStatus () {
-      // this.$refs.player.control.player()
-      // document.querySelector('audio').play()
-      // console.log(document.querySelector('audio'))
-      // console.log(document.querySelector('audio').play())
-      // console.log(this.$store.state.playStatus)
-    }
-  },
   methods: {
     changePlaybackRate () {
       document.querySelector('audio').playbackRate = 2

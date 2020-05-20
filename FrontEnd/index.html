@@ -6,6 +6,72 @@
     <title>music</title>
   </head>
   <body>
+
+      <!-- <audio src="" controls type="audio/mpeg" preload id="bgmusic"></audio>
+      <div id="msg"> </div>---
+      <div id="text"> </div>
+      <script>
+        console.log(111)
+      var msg = document.getElementById('msg')
+
+      function forceSafariPlayAudio() {
+          audioEl.load(); // iOS 9   还需要额外的 load 一下, 否则直接 play 无效
+          audioEl.play(); // iOS 7/8 仅需要 play 一下
+      }
+      var audioEl = document.getElementById('bgmusic')
+
+      var i = 0
+      var textEl = document.getElementById('text')
+      var textTXT = textEl.innnerHTML
+      function setStr (str) {
+          i++
+          textTXT = textTXT + str + i
+          textEl.innerHTML = textTXT
+      }
+
+      audioEl.addEventListener('loadstart', function() {
+              console.log('loadstart');
+          setStr(', loadstart')
+      }, false);
+      audioEl.addEventListener('loadeddata', function() {
+          console.log('loadeddata');
+          setStr(', loadstart')
+      }, false);
+      audioEl.addEventListener('loadedmetadata', function(e) {
+        console.log(e.target.duration, e)
+        msg.innerHTML = e.target.duration + JSON.stringify(e)
+
+          console.log('loadedmetadata');
+          setStr(', loadedmetadata')
+      }, false);
+      audioEl.addEventListener('canplay', function() {
+          console.log('canplay');
+          setStr(', canplay')
+      }, false);
+      audioEl.addEventListener('play', function() {
+          console.log('play');
+          setStr(', play')
+          // 当 audio 能够播放后, 移除这个事件
+          window.removeEventListener('touchstart', forceSafariPlayAudio, false);
+      }, false);
+      audioEl.addEventListener('playing', function() {
+          console.log('playing');
+          setStr(', playing')
+      }, false);
+      audioEl.addEventListener('pause', function() {
+          console.log('pause');
+          setStr(', pause')
+      }, false);
+
+      // window.addEventListener('touchstart', forceSafariPlayAudio, false);
+
+      // audioEl.src = 'http://www.w3school.com.cn/i/song.mp3'
+      // audioEl.src = 'http://m701.music.126.net/20200509185202/c10e595f05cfa2448a79741e6a3bb898/jdymusic/obj/w5zDlMODwrDDiGjCn8Ky/2092528571/bc9f/12d5/476d/860d5694d870aca1fc7ae978037228d8.mp3'
+      // audioEl.src = 'http://111.229.237.104:3308/uploadFile/0.mp3'
+      audioEl.src = 'http://111.229.237.104:3308/uploadFile/01.mp3'
+      // audioEl.src = 'http://111.229.237.104:3308/uploadFile/0.m4a'
+    </script> -->
+
     <div id="app"></div>
     <!-- built files will be auto injected -->
 

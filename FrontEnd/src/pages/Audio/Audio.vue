@@ -1,16 +1,14 @@
 <template>
   <div>
-    <!-- src="http://localhost:3308/music.mp3" -->
-    <!-- src="https://m10.music.126.net/20200418173352/27c6d61b1483c92c5a9249ccb29f2220/ymusic/c967/f2b7/691f/b53842874406c8afc883928d647459eb.mp3" -->
-    <div v-if="this.audio">{{audio}}</div>
-    <div v-if="this.audio.maxTime">{{maxTime}} : {{maxTime.target}} : {{maxTime.target.duration}}</div>
+    <!-- <div v-if="this.audio">{{audio}}</div>
+    <div v-if="this.audio.maxTime">{{maxTime}} : {{maxTime.target}} : {{maxTime.target.duration}}</div> -->
     <audio ref="audio"
       @pause="onPause"
       @play="onPlay"
       @timeupdate="onTimeupdate"
       @loadedmetadata="onLoadedmetadata"
       src=""
-      style="display: block"
+      style="display: none"
       meted="meted"
       controls="controls"></audio>
 
@@ -30,13 +28,39 @@
       <!-- 播放按钮 -->
       <div class="button_wrapper">
         <svg class="icon previous" aria-hidden="true"> <use xlink:href="#icon-zuofan"></use> </svg>
-        <!-- <el-button type="text" @click="startPlayOrPause">{{audio.playing | transPlayPause}}</el-button> -->
+
+        <div class="forback" @click="changePlaybackTime">
+          <div class="text">5s</div>
+          <svg class="icon forback-icon" aria-hidden="true"> <use xlink:href="#icon-xiangzuoxuanzhuan"></use> </svg>
+        </div>
+
         <div @click="startPlayOrPause">
           <svg v-if="this.audio.playing" class="icon" aria-hidden="true"> <use xlink:href="#icon-bofang"></use> </svg>
           <svg v-else class="icon" aria-hidden="true"> <use xlink:href="#icon-zanting"></use> </svg>
         </div>
+
+        <div class="forward" @click="changePlayForwardTime">
+          <div class="text">5s</div>
+          <svg class="icon forback-icon" aria-hidden="true"> <use xlink:href="#icon-xiangyouxuanzhuan"></use> </svg>
+        </div>
+
         <svg class="icon next" aria-hidden="true"> <use xlink:href="#icon-youfanye"></use> </svg>
       </div>
+
+      <div class="changePlaybackRate">
+        <div @click="showPlaybackRate()">倍速</div>
+        <div :style="{ display: showChangePlaybackRate }">
+          <ul>
+            <li @click="changePlaybackRate(0.5)">0.5</li>
+            <li @click="changePlaybackRate(1)">1</li>
+            <li @click="changePlaybackRate(1.5)">1.5</li>
+            <li @click="changePlaybackRate(2)">2</li>
+            <li @click="changePlaybackRate(2.5)">2.5</li>
+            <li @click="changePlaybackRate(3)">3</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -49,9 +73,9 @@ export default {
       sliderTime: null,
       url: '123.mp3',
       audio: {
-        // 该字段是音频是否处于播放状态的属性
         playing: false,
-        maxTime: null
+        maxTime: null,
+        currentTime: null
       },
       currentPlay: {
         autoplay: false,
@@ -61,15 +85,13 @@ export default {
         url: null,
         pic: null,
         lrc: null
-      }
+      },
+      showChangePlaybackRate: 'none'
     }
   },
   computed: {
     getCurrentPlay () {
       return this.$store.state.currentPlay
-    },
-    getMaxTimechange () {
-      return this.audio.maxTime
     }
   },
   watch: {
@@ -84,14 +106,10 @@ export default {
         lrc: this.$store.state.currentPlay.lrc
       }
       // 如果点击了列表，当前播放文件被改变，则重新赋值 并播放
-      // this.$refs.audio.setAttribute('src', 'http://111.229.237.104:3308/uploadFile/' + this.$store.state.currentPlay.url)
-      this.$refs.audio.setAttribute('src', 'http://www.w3school.com.cn/i/song.mp3')
-      // this.$refs.audio.setAttribute('src', 'http://m801.music.126.net/20200509151706/010cffbca9ba0f0ba1f9c3bcf8c5eeda/jdymusic/obj/w5zDlMODwrDDiGjCn8Ky/2270179822/2491/6dd5/eafd/7db3a42de108d4d1dbb91fb71d024c28.mp3')
-
+      this.$refs.audio.setAttribute('src', 'http://111.229.237.104:3308/uploadFile/' + this.$store.state.currentPlay.url)
+      // this.$refs.audio.setAttribute('src', 'http://m701.music.126.net/20200513111319/373963af96443e8e158610808a29f846/jdymusic/obj/w5zDlMODwrDDiGjCn8Ky/2092528571/bc9f/12d5/476d/860d5694d870aca1fc7ae978037228d8.mp3')
+      // this.$refs.audio.setAttribute('src', 'http://www.w3school.com.cn/i/song.mp3')
       // this.$refs.audio.play() //  Safari 浏览器不允许自动播放，违反用户意愿
-    },
-    getMaxTimechange () {
-      console.log('this.audio.maxTime' + this.audio.maxTime)
     }
   },
   methods: {
@@ -100,7 +118,6 @@ export default {
       return this.audio.playing ? this.pause() : this.play()
     },
     play () { // 播放音频
-      // this.$refs.audio.setAttribute('src', 'http://m10.music.126.net/20200420164512/b3236c01e18edcde39c6e28c405f43a9/ymusic/d605/00d2/9ab8/26f7b290859a3bfad643ef28be54bf84.mp3')
       this.$refs.audio.play()
     },
     pause () { // 暂停音频
@@ -115,16 +132,12 @@ export default {
     // 当加载语音流元数据完成后，会触发该事件的回调函数
     // 语音元数据主要是语音的长度之类的数据
     onLoadedmetadata (res) {
-      console.log('loadedmetadata', res.target.duration, res)
       this.maxTime = res
-      // if (res.target.duration) this.audio.maxTime = parseInt(res.target.duration)
       this.audio.maxTime = parseInt(res.target.duration)
     },
     // 当timeupdate事件大概每秒一次，用来更新音频流的当前播放时间
     // 当音频当前时间改变后，进度条也要改变
     onTimeupdate (res) {
-      // console.log('timeupdate')
-      // console.log(res)
       this.audio.currentTime = res.target.currentTime
       this.sliderTime = parseInt(this.audio.currentTime / this.audio.maxTime * 100)
     },
@@ -136,15 +149,23 @@ export default {
     formatProcessToolTip (index = 0) {
       index = parseInt(this.audio.maxTime / 100 * index)
       return '进度条: ' + realFormatSecond(index)
+    },
+    changePlaybackRate (rate) {
+      document.querySelector('audio').playbackRate = rate
+    },
+    showPlaybackRate () {
+      this.showChangePlaybackRate = this.showChangePlaybackRate === 'block' ? 'none' : 'block'
+    },
+    changePlaybackTime () {
+      document.querySelector('audio').currentTime -= 5
+    },
+    changePlayForwardTime () {
+      document.querySelector('audio').currentTime += 5
     }
   },
   filters: {
-    // // 使用组件过滤器来动态改变按钮的显示
-    // transPlayPause (value) {
-    //   return value ? '暂停' : '播放'
-    // },
-    // 将整数转化成时分秒
-    formatSecond (second = 0) {
+    // 使用组件过滤器来动态改变按钮的显示
+    formatSecond (second = 0) { // 将整数转化成时分秒
       return realFormatSecond(second)
     }
   }
@@ -174,6 +195,7 @@ function realFormatSecond (second) {
   font-size 18px
   padding 20px
   box-sizing border-box
+
 .controls_wrapper
   margin-top 20px
   .slider_wrapper
@@ -188,10 +210,41 @@ function realFormatSecond (second) {
     display flex
     justify-content space-around
     padding 30px 0
+
+    .forback, .forward
+      color #ff9d4d
+      position relative
+      height 40px
+      width 40px
+      .text
+        font-size 12px
+        line-height 40px
+        position absolute
+        left 0
+        right 0
+        top 0
+        bottom 0
+      .icon
+        height 30px
+        width 30px
+        padding 5px
+
     .icon
       width 60px
       height 60px
     .previous, .next
       width 30px
       height 30px
+
+  .changePlaybackRate
+    font-size 16px
+
+    div
+      padding 20px
+      // position fixed
+      // bottom 0
+
+      li
+        line-height 2.5
+        border-top 1px solid #efefef
 </style>

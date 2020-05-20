@@ -11,7 +11,6 @@
     }"></vue-aplayer> -->
     <!-- <vue-aplayer v-if="this.currentPlay.url" :music="this.currentPlay" ref="player"></vue-aplayer> -->
     <list></list>
-    <Controller></Controller>
   </div>
 </template>
 
@@ -19,7 +18,6 @@
 import vueAplayer from 'vue-aplayer'
 import axios from 'axios'
 import List from './components/List'
-import Controller from './components/Controller'
 import aaudio from '../Audio/Audio'
 
 export default {
@@ -40,7 +38,6 @@ export default {
   components: {
     vueAplayer,
     List,
-    Controller,
     aaudio
   },
   computed: {
