@@ -20,17 +20,111 @@ router.get('/', async(ctx, next) => {
 })
 
 router.get('/uploadFile/:filename', async(ctx, next) => {
-	// var mp3 = path.resolve('/www/wwwroot/threeki/dedao/server-no-pm2/uploadFile/' + ctx.params.filename)
-	var mp3 = path.resolve(__dirname + '../../../uploadFile/' + ctx.params.filename)
-
+	var mp3 = path.resolve('/www/wwwroot/threeki/dedao/server-no-pm2/uploadFile/' + ctx.params.filename)
 	// var mp3 = path.resolve(__dirname + '../../../../uploadFile/' + ctx.params.filename)
 
 	if (fs.existsSync(mp3)) {
-		console.log('文件存在');
-		const src = fs.createReadStream(mp3)
-		ctx.body = src
+		// ctx.set({
+		// 	'Content-Type': 'audio/mpeg',
+		// 	'Content-Length': fs.statSync(mp3).size,
+
+		// 	// 'Accept-Ranges': 'bytes',
+		// 	'Access-Control-Allow-Credentials': true,
+		// 	'Access-Control-Allow-Headers': 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range',
+		// 	'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
+
+		// 	'Pragma': 'public',
+		// 	'Expires': '0',
+		// 	'Content-Disposition': 'inline; filename="' + mp3 + '"',
+		// 	'Content-Range': 'bytes 0-10240' + '/' + fs.statSync(mp3).size, 
+		// 	'Accept-Ranges': 'bytes',
+		// 	'X-Pad': 'avoid browser bug',
+		// 	'Cache-Control': 'no-cache',
+		// 	'Etag': '' + fs.statSync(mp3).size,
+		// })
+
+
+		let size = fs.statSync(mp3).size
+
+		ctx.set({
+			'Content-Type': 'audio/mpeg;charset=UTF-8',
+			'Accept-Ranges': 'bytes',
+		})
+	
+		if (ctx.headers.range === 'bytes=0-1') {
+			console.log('in 1 !!!')
+			ctx.set('Content-Range', `bytes 0-1/${size}`)
+			ctx.body = '1'
+		} else if (ctx.headers.range) {
+			console.log('in 2 !!!')
+
+			// 可能遇到的5种情况：
+			// 1.表示第二个500字节：bytes=500-999
+			// 2.表示最后500个字节：bytes=-500
+			// 3.表示500字节以后的范围：bytes=500-
+			// 4.第一个和最后一个字节：bytes=0-0,-1
+			// 5.同时指定几个范围：bytes=500-600,601-999
+
+			let _range = ctx.request.header.range
+			// _range = 'bytes=5000000-' //
+			let [start, end] =  _range.replace('bytes=', '').split('-')
+			start = parseInt(start, 10)
+			  end = parseInt(end, 10)
+
+			if ( !isNaN(start) && isNaN(end) ) {
+				start = start
+				end = size - 1
+			}
+			if ( isNaN(start) && !isNaN(end) ) {
+				start = size - end
+				end = size - 1
+			}
+			console.log(start, end)
+
+			// Handle unavailable range request
+			if ( start >= size || end >= size ) {
+				ctx.set({
+					'status': '416 Range Not Satisfiable',
+					'Content-Range': `bytes */${size}`
+				})
+			}
+
+			ctx.response.status = 206
+			ctx.set({
+				// 'status': '206 Partial Content',
+				'Content-Range': `bytes ${start}-${end}/${size}`,
+				'Content-Length': (end - start) + 1,
+
+				// 'Access-Control-Allow-Credentials': true,
+				// 'Access-Control-Allow-Headers': 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range',
+				// 'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
+			})
+
+			// const src = fs.createReadStream(mp3, { start, end })
+			// ctx.body = src
+				// .on('open', () => {
+				// 	ctx.body = src
+				// })
+				// .on('error', () => {
+				// 	ctx.body = err
+				// })
+
+			ctx.body = fs.readFileSync(mp3).slice(start, end+1)
+			
+		} else {
+			console.log('in 3 !!!')
+			ctx.set({
+				'Accept-Ranges': 'bytes',
+				// 'Access-Control-Allow-Credentials': true,
+				// 'Access-Control-Allow-Headers': 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range',
+				// 'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
+			})
+			console.log('文件存在')
+			const src = fs.createReadStream(mp3)
+			ctx.body = src
+		}
+
 	} else {
-		ctx.response.status= 404
 		ctx.body = 'error: 你所访问的文件并不存在, 路径：' + mp3
 	}
 })
