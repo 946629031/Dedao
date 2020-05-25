@@ -44,6 +44,10 @@ ul {
 ul li {
   list-style: none;
 }
+a {
+  text-decoration: none;
+  color: #000
+}
 
 .icon { /* iconfont */
   width: 1em;

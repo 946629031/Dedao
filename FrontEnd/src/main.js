@@ -10,9 +10,12 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/styles/iconfont/iconfont.css'
 import '@/assets/styles/iconfont/iconfont.js'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/css/swiper.css'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
+Vue.use(VueAwesomeSwiper)
 
 /* eslint-disable no-new */
 new Vue({
