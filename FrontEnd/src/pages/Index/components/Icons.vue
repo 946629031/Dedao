@@ -20,21 +20,6 @@
       </div>
     </div>
 
-    <!-- <div id="no_icons" v-else>
-      <div class="main_icons">
-        <div class="item" v-for="(item, index) of icons.main_icons" :key="index">
-          <img :src="item.img" alt="">
-          <div>{{item.name}}</div>
-        </div>
-      </div>
-      <div class="second_icons">
-        <div class="item" v-for="(item, index) of icons.second_icons" :key="index">
-          <img :src="item.img" alt="">
-          <div>{{item.name}}</div>
-        </div>
-      </div>
-    </div> -->
-
   </div>
 </template>
 
@@ -118,7 +103,4 @@ export default {
         padding 0 .22rem
         box-sizing border-box
         z-index 2
-
-#no_icons
-  background none
 </style>
