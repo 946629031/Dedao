@@ -43,7 +43,8 @@ export default {
   border-radius 0
 
 .swiper-container
-  margin 10px 0
+  margin 10px
+  border-radius 6px
 
   .swiper-slide:after
     content ''

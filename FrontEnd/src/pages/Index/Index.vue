@@ -2,6 +2,7 @@
   <div id="index">
     <search></search>
     <swiper :banners='banners'></swiper>
+    <icons :icons='icons'></icons>
 
     <div class="card">
       <ul v-if='this.list'>
@@ -18,17 +19,20 @@
 import Axios from 'axios'
 import Search from './components/Search'
 import Swiper from './components/Swiper'
+import Icons from './components/Icons'
 
 export default {
   name: 'Index',
   components: {
     Search,
-    Swiper
+    Swiper,
+    Icons
   },
   data () {
     return {
       list: null,
-      banners: null
+      banners: null,
+      icons: null
     }
   },
   mounted () {
@@ -37,6 +41,7 @@ export default {
         console.log(data)
         this.list = data.data.data.course
         this.banners = data.data.data.banners
+        this.icons = data.data.data.icons
       })
   }
 }
@@ -47,15 +52,16 @@ export default {
 #index
   background #f8f8f8
   height 100vh
-  padding 10px
+  // padding 10px
 
   a
     font-size 16px
     display block
-    line-height 42px
+    line-height .42rem
 
   .card
-    border-radius 4px
+    border-radius .04rem
     background #fff
-    padding 0 10px
+    padding 0 .1rem
+    margin 0 .1rem
 </style>

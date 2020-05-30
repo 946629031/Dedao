@@ -18,15 +18,17 @@ export default {
 #search
   display flex
   align-items center
+  padding .1rem
 
   .search_area
     background #f0f0f0
     display flex
     border-radius 6px
     width 100%
+    align-items center
 
     .search_icon
-      padding 4px 10px
+      padding 0 10px
 
   .search_input
     width 100%
@@ -37,6 +39,9 @@ export default {
     height 40px
     background #f0f0f0
     padding-left 0
+
+  .search_input::placeholder
+    font-size 14px
 
   .letter
     padding 6px 10px
